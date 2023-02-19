@@ -1,23 +1,12 @@
 
-// const saveInput = () => {
-// console.log("function called");
-// chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 
-//     // since only one tab should be active and in the current window at once
-//     // the return variable should only have one entry
-//     var activeTab = tabs[0];
-//     var activeTabId = activeTab.id; // or do whatever you need
-
-//  })
-
-// let myUrl = []
 const inputUrl = document.getElementById("inputUrl")
 const saveInput = document.getElementById("saveInputBtn")
 const saveTab = document.getElementById("saveTabBtn")
 const deleteAllBtn = document.getElementById("deleteAllBtn");
 const savedUrl = document.getElementById("savedUrl");
 
-// Dialog box variables
+//******************  Dialog box variables ****************
 let myDialog = document.getElementById("myDialog");
 let yesButton = document.getElementById("yesButton");
 let noButton = document.getElementById("noButton");
@@ -51,8 +40,7 @@ const render = () => {
   savedUrl.innerHTML = listItems;
 } 
 
-// <button class="copybtn px-2" data-copy='${lists[el]}'> <ion-icon name="copy-outline" data-copy='${lists[el]}' class='copybtn'></ion-icon> </button>
-//                                 <button  class='deleteBtn px-2" data-delete='${lists[el]}'> <ion-icon name='trash-outline' class='deleteBtn' data-delete='${lists[el]}'></ion-icon> </button> 
+
 //  **************** saveInputBtn click event **************************
 saveInput.addEventListener("click", function () {
   
@@ -68,9 +56,7 @@ saveInput.addEventListener("click", function () {
 })
 
 //  *************** Save tab click event
-// const tabs = [{url:"https://youtube.com"}] 
 
-// const tabs = [{}]
 saveTab.addEventListener("click", function() {
   
   chrome.tabs.query({active: true, currentWindow:true}, function(tabs) {
@@ -79,9 +65,6 @@ saveTab.addEventListener("click", function() {
     localStorage.setItem("myUrl",JSON.stringify(array))
     render()
   })
-
-  // console.log(tabs)
-
 })
 
 
@@ -94,29 +77,6 @@ if (urlFromLocalStorage) {
     myUrl = urlFromLocalStorage
     render();
 }
-
-// Delete button function 
-
-// deleteAllBtn.addEventListener('dblclick',function() {
-//     console.log("delete all")
-//    let confirmDelete = confirm("Are you sure you want to delete all saved url?")
-//    if(confirmDelete) {
-//        localStorage.clear();
-//        myUrl = []
-//        renderList()
-//    }
-//    else {
-//     let urlFromLocalStorage = JSON.parse( localStorage.getItem("myUrl") )
-//     console.log(urlFromLocalStorage)
-//     if (urlFromLocalStorage) {
-//         myUrl = urlFromLocalStorage
-//         renderList();
-//     }
-//    }
-// })
-
-
-
 
 
 // ************************ Dialog box for delete confirmation ***************************
@@ -171,44 +131,17 @@ dropTabsBtn.addEventListener("click",function() {
 // *************** copy tab ******************* 
 
 savedUrl.addEventListener('click', (event) => {
-  // console.log("clicked on ", event.target.classList.contains("copybtn"));
   if(event.target.classList.contains("copybtn")){
     const value = event.target.dataset.copy;
-   console.log("value",value)  
-  //  navigator.clipboard.writeText(value);
-  navigator.clipboard.writeText(value).then(() =>
-    console.log("successfully copied to clipboard")).catch(err => console.log(err)) ;
+       navigator.clipboard.writeText(value).then(() =>
   }
   if(event.target.classList.contains("deleteBtn")){
-
     const value = event.target.dataset.delete;
-   console.log("value",value)  
-  //  lists.filter(el => el !== value)
-  //  navigator.clipboard.writeText(value);
+  
   const array = JSON.parse(localStorage.getItem("myUrl")) || []
   const updatedList = array.filter(el => el !== value)
-    console.log("successfully deleted",updatedList);
-
+ 
    localStorage.setItem("myUrl",JSON.stringify(updatedList))
     render();
-  }
-  
+  }  
 })
-
-
-
-
-// function copyContent() {
-//   // Get the text field
-//   var copyText = document.getElementById("inputUrl");
-
-//   // Select the text field
-//   copyText.select();
-//   copyText.setSelectionRange(0, 99999); // For mobile devices
-
-//   // Copy the text inside the text field
-//   navigator.clipboard.writeText(copyText.value);
-  
-//   // Alert the copied text
-//   alert("Copied the text: " + copyText.value);
-// }
