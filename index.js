@@ -1,8 +1,4 @@
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 28b92667cc9e053ee1ed372bdcbc4ce9d61c0004
 const inputUrl = document.getElementById("inputUrl")
 const saveInput = document.getElementById("saveInputBtn")
 const saveTab = document.getElementById("saveTabBtn")
@@ -44,10 +40,6 @@ const render = () => {
 }
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 28b92667cc9e053ee1ed372bdcbc4ce9d61c0004
 //  **************** saveInputBtn click event **************************
 saveInput.addEventListener("click", function () {
 
@@ -63,16 +55,9 @@ saveInput.addEventListener("click", function () {
 })
 
 //  *************** Save tab click event
-<<<<<<< HEAD
 saveTab.addEventListener("click", function () {
 
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-=======
-
-saveTab.addEventListener("click", function() {
-  
-  chrome.tabs.query({active: true, currentWindow:true}, function(tabs) {
->>>>>>> 28b92667cc9e053ee1ed372bdcbc4ce9d61c0004
     const array = JSON.parse(localStorage.getItem("myUrl")) || []
     array.unshift(tabs[0].url)
     localStorage.setItem("myUrl", JSON.stringify(array))
@@ -88,10 +73,6 @@ if (urlFromLocalStorage) {
   render();
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 28b92667cc9e053ee1ed372bdcbc4ce9d61c0004
 // ************************ Dialog box for delete confirmation ***************************
 deleteAllBtn.addEventListener('click', function () {
 
@@ -141,7 +122,6 @@ dropTabsBtn.addEventListener("click", function () {
 // *************** copy tab ******************* 
 
 savedUrl.addEventListener('click', (event) => {
-<<<<<<< HEAD
   // console.log("clicked on ", event.target.classList.contains("copybtn"));
   if (event.target.classList.contains("copybtn")) {
     const value = event.target.dataset.copy;
@@ -163,19 +143,3 @@ savedUrl.addEventListener('click', (event) => {
   }
 
 })
-=======
-  if(event.target.classList.contains("copybtn")){
-    const value = event.target.dataset.copy;
-       navigator.clipboard.writeText(value).then(() =>
-  }
-  if(event.target.classList.contains("deleteBtn")){
-    const value = event.target.dataset.delete;
-  
-  const array = JSON.parse(localStorage.getItem("myUrl")) || []
-  const updatedList = array.filter(el => el !== value)
- 
-   localStorage.setItem("myUrl",JSON.stringify(updatedList))
-    render();
-  }  
-})
->>>>>>> 28b92667cc9e053ee1ed372bdcbc4ce9d61c0004
