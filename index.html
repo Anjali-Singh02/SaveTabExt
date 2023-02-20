@@ -7,13 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chrome Extension</title>
     <link rel="stylesheet" href="./dist/output.css">
-   
+
 </head>
 
-<body>
-    <div class="min-w-[400px]  h-96 max-w-screen box-border w-full p-3">
+<body class="bg-gradient-to-r from-green-500 via-yellow-300 to-red-600 ...">
+     <!-- ************  Container ****************** -->
+    <div class="min-w-[400px] h-96 max-w-screen box-border w-full p-3">
+        <h1 class="flex justify-center text-cyan-900 text-xl font-semibold">Save Links</h1>
+
         <input type="text" name="url-bar" id="inputUrl" placeholder="Enter url to save it!"
-            class="w-full px-3 py-1 rounded-md border border-cyan-600">
+            class="w-full mt-2 px-3 py-2 rounded-md border border-cyan-600">
         <div>
             <button id="saveInputBtn"
                 class="text-white bg-cyan-600 rounded px-3 py-2 border-none mt-2 mr-2">Save</button>
@@ -35,9 +38,10 @@
         <!-- *************** Saved Tabs List  ******************** -->
         <div>
             <div class=" relative inline-block " id="dropdown">
-                <button class="border text-cyan-800 p-1 rounded-lg underline text-xl border-cyan-700 my-3 "
+                <button class="border text-white rounded-lg underline text-xl border-white font-semibold p-2 my-3 "
                     id="dropTabsBtn">Saved Tabs</button>
-                <div class=" hidden overflow-y-scroll fixed w-96 h-56 px-6 py-3 border border-cyan-900 mt-1 m-auto rounded">
+                <div
+                    class=" hidden overflow-scroll bg-white fixed w-96 h-44 px-6 py-3 border border-cyan-900 rounded-md">
                     <div id="savedContent">
                         <ul class="max-w-xs" id="savedUrl"></ul>
                     </div>
@@ -45,8 +49,7 @@
             </div>
         </div>
     </div>
-        <script src="index.js"></script>
+    <script src="index.js"></script>
 </body>
-
 
 </html>

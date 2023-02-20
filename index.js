@@ -1,16 +1,4 @@
 
-// const saveInput = () => {
-// console.log("function called");
-// chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-
-//     // since only one tab should be active and in the current window at once
-//     // the return variable should only have one entry
-//     var activeTab = tabs[0];
-//     var activeTabId = activeTab.id; // or do whatever you need
-
-//  })
-
-// let myUrl = []
 const inputUrl = document.getElementById("inputUrl")
 const saveInput = document.getElementById("saveInputBtn")
 const saveTab = document.getElementById("saveTabBtn")
@@ -28,8 +16,8 @@ const render = () => {
   let listItems = "";
   const lists = JSON.parse(localStorage.getItem('myUrl')) || [];
   for (let el in lists) {
-     listItems  += `<div>
-                        <li class='flex justify-between text-cyan-600 underline' id='content'>
+    listItems += `<div>
+                        <li class='flex justify-between text-xl text-cyan-700 underline' id='content'>
                             <a target='_blank' href='${lists[el]}'>
                                 ${lists[el]}
                             </a>
@@ -49,34 +37,30 @@ const render = () => {
                     <div>`
   }
   savedUrl.innerHTML = listItems;
-} 
+}
 
-// <button class="copybtn px-2" data-copy='${lists[el]}'> <ion-icon name="copy-outline" data-copy='${lists[el]}' class='copybtn'></ion-icon> </button>
-//                                 <button  class='deleteBtn px-2" data-delete='${lists[el]}'> <ion-icon name='trash-outline' class='deleteBtn' data-delete='${lists[el]}'></ion-icon> </button> 
+
 //  **************** saveInputBtn click event **************************
 saveInput.addEventListener("click", function () {
-  
-    // console.log("Button clicked");
-    if(!inputUrl.value.trim()){
-      return;
-    }
-    const array = JSON.parse(localStorage.getItem("myUrl")) || []
-    array.unshift(inputUrl.value)
-    inputUrl.value = ""
-    localStorage.setItem("myUrl",JSON.stringify(array));
-    render();
+
+  // console.log("Button clicked");
+  if (!inputUrl.value.trim()) {
+    return;
+  }
+  const array = JSON.parse(localStorage.getItem("myUrl")) || []
+  array.unshift(inputUrl.value)
+  inputUrl.value = ""
+  localStorage.setItem("myUrl", JSON.stringify(array));
+  render();
 })
 
 //  *************** Save tab click event
-// const tabs = [{url:"https://youtube.com"}] 
+saveTab.addEventListener("click", function () {
 
-// const tabs = [{}]
-saveTab.addEventListener("click", function() {
-  
-  chrome.tabs.query({active: true, currentWindow:true}, function(tabs) {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     const array = JSON.parse(localStorage.getItem("myUrl")) || []
     array.unshift(tabs[0].url)
-    localStorage.setItem("myUrl",JSON.stringify(array))
+    localStorage.setItem("myUrl", JSON.stringify(array))
     render()
   })
 
@@ -84,131 +68,81 @@ saveTab.addEventListener("click", function() {
 
 })
 
-
-
-
 // ********************** storing values from localstorage ********************
-let urlFromLocalStorage = JSON.parse( localStorage.getItem("myUrl") )
-console.log(urlFromLocalStorage)
+let urlFromLocalStorage = JSON.parse(localStorage.getItem("myUrl"))
+// console.log(urlFromLocalStorage)
 if (urlFromLocalStorage) {
-    myUrl = urlFromLocalStorage
-    render();
+  myUrl = urlFromLocalStorage
+  render();
 }
 
-// Delete button function 
-
-// deleteAllBtn.addEventListener('dblclick',function() {
-//     console.log("delete all")
-//    let confirmDelete = confirm("Are you sure you want to delete all saved url?")
-//    if(confirmDelete) {
-//        localStorage.clear();
-//        myUrl = []
-//        renderList()
-//    }
-//    else {
-//     let urlFromLocalStorage = JSON.parse( localStorage.getItem("myUrl") )
-//     console.log(urlFromLocalStorage)
-//     if (urlFromLocalStorage) {
-//         myUrl = urlFromLocalStorage
-//         renderList();
-//     }
-//    }
-// })
-
-
-
-
-
 // ************************ Dialog box for delete confirmation ***************************
-deleteAllBtn.addEventListener('click',function(){
-function showDialog() {
+deleteAllBtn.addEventListener('click', function () {
+
+  function showDialog() {
     myDialog.style.display = "block";
   }
-  
+
   function hideDialog() {
     myDialog.style.display = "none";
   }
-  
+
   function handleYesButtonClick() {
     // Code to delete the item goes here
     localStorage.clear();
-           myUrl = []
-           render(myUrl)
+    myUrl = []
+    render(myUrl)
     hideDialog();
   }
-  
+
   function handleNoButtonClick() {
     // Code to cancel the deletion goes here
     hideDialog();
   }
-  
+
   yesButton.addEventListener("click", handleYesButtonClick);
   noButton.addEventListener("click", handleNoButtonClick);
-  
+
   showDialog();
 })
-
-
 
 
 //  **********************  saved content *****************************
 
 const dropTabsBtn = document.getElementById("dropTabsBtn")
-dropTabsBtn.addEventListener("click",function() {
+dropTabsBtn.addEventListener("click", function () {
   let dropdownContent = this.nextElementSibling;
-  if(dropdownContent.style.display === "block") {
+  if (dropdownContent.style.display === "block") {
     dropdownContent.style.display = "none"
   }
-  else if(dropdownContent != null){
+  else if (dropdownContent != null) {
 
     dropdownContent.style.display = "block"
   }
 })
 
 
-
-
 // *************** copy tab ******************* 
 
 savedUrl.addEventListener('click', (event) => {
   // console.log("clicked on ", event.target.classList.contains("copybtn"));
-  if(event.target.classList.contains("copybtn")){
+  if (event.target.classList.contains("copybtn")) {
     const value = event.target.dataset.copy;
-   console.log("value",value)  
-  //  navigator.clipboard.writeText(value);
-  navigator.clipboard.writeText(value).then(() =>
-    console.log("successfully copied to clipboard")).catch(err => console.log(err)) ;
+    console.log("value", value)
+
+    navigator.clipboard.writeText(value).then(() =>
+      console.log("successfully copied to clipboard")).catch(err => console.log(err));
   }
-  if(event.target.classList.contains("deleteBtn")){
+  if (event.target.classList.contains("deleteBtn")) {
 
     const value = event.target.dataset.delete;
-   console.log("value",value)  
-  //  lists.filter(el => el !== value)
-  //  navigator.clipboard.writeText(value);
-  const array = JSON.parse(localStorage.getItem("myUrl")) || []
-  const updatedList = array.filter(el => el !== value)
-    console.log("successfully deleted",updatedList);
+    console.log("value", value)
+    const array = JSON.parse(localStorage.getItem("myUrl")) || []
+    const updatedList = array.filter(el => el !== value)
+    console.log("successfully deleted", updatedList);
 
-   localStorage.setItem("myUrl",JSON.stringify(updatedList))
+    localStorage.setItem("myUrl", JSON.stringify(updatedList))
     render();
   }
-  
+
 })
-
-
-
-
-// function copyContent() {
-//   // Get the text field
-//   var copyText = document.getElementById("inputUrl");
-
-//   // Select the text field
-//   copyText.select();
-//   copyText.setSelectionRange(0, 99999); // For mobile devices
-
-//   // Copy the text inside the text field
-//   navigator.clipboard.writeText(copyText.value);
-  
-//   // Alert the copied text
-//   alert("Copied the text: " + copyText.value);
-// }
