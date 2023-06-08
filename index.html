@@ -1,55 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Chrome Extension</title>
+		<link rel="stylesheet" href="./dist/output.css" />
+	</head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chrome Extension</title>
-    <link rel="stylesheet" href="./dist/output.css">
+	<body>
+		<!-- ************  Container ****************** -->
+		<div
+			class="min-w-[400px] h-96 max-w-screen box-border w-full p-3 text-center"
+		>
+			<h1
+				class="flex justify-center text-purple-900 text-xl font-semibold"
+			>
+				Save Links
+			</h1>
 
-</head>
+			<input
+				type="text"
+				name="url-bar"
+				id="inputUrl"
+				placeholder="Enter url to save it!"
+				class="w-full mt-2 px-3 py-2 rounded-md border border-purple-700 shadow-lg text-purple-800"
+			/>
+			<div class="mt-2 text-center">
+				<button
+					id="saveInputBtn"
+					class="text-purple-800 border border-purple-700 rounded px-3 py-1 mt-2 mr-2 shadow-xl"
+				>
+					Save
+				</button>
+				<button
+					id="saveTabBtn"
+					class="text-purple-800 border border-purple-700 rounded px-3 py-1 mt-2 mr-2 shadow-xl"
+				>
+					Save Tab
+				</button>
+				<button
+					id="deleteAllBtn"
+					class="text-purple-800 border border-purple-700 rounded px-3 py-1 mt-2 mr-2 shadow-xl"
+				>
+					Delete All
+				</button>
+			</div>
 
-<body class="bg-gradient-to-r from-green-500 via-yellow-300 to-red-600 ...">
-     <!-- ************  Container ****************** -->
-    <div class="min-w-[400px] h-96 max-w-screen box-border w-full p-3">
-        <h1 class="flex justify-center text-cyan-900 text-xl font-semibold">Save Links</h1>
-
-        <input type="text" name="url-bar" id="inputUrl" placeholder="Enter url to save it!"
-            class="w-full mt-2 px-3 py-2 rounded-md border border-cyan-600">
-        <div>
-            <button id="saveInputBtn"
-                class="text-white bg-cyan-600 rounded px-3 py-2 border-none mt-2 mr-2">Save</button>
-            <button id="saveTabBtn" class="text-white bg-cyan-600 rounded px-3 py-2 border-none mt-2 mr-2">Save
-                Tab</button>
-            <button id="deleteAllBtn" class="text-white bg-cyan-600 rounded px-3 py-2 border-none mt-2 mr-2">Delete
-                All</button>
-        </div>
-
-        <!-- ******************* Dialog box ************************* -->
-        <div id="myDialog"
-            class=" fixed hidden w-4/6 text-cyan-50 bg-slate-900 translate-y-0 p-3 z-10 rounded-md m-auto">
-            <p>Are you sure you want to delete this item?</p>
-            <div class="flex justify-end">
-                <button id="yesButton" class="text-cyan-600 bg-white rounded px-3 py-2 border-none m-2 ">Yes</button>
-                <button id="noButton" class="text-cyan-600 bg-white rounded px-3 py-2 border-none m-2 ">No</button>
-            </div>
-        </div>
-        <!-- *************** Saved Tabs List  ******************** -->
-        <div>
-            <div class=" relative inline-block " id="dropdown">
-                <button class="border text-white rounded-lg underline text-xl border-white font-semibold p-2 my-3 "
-                    id="dropTabsBtn">Saved Tabs</button>
-                <div
-                    class=" hidden overflow-scroll bg-white fixed w-96 h-44 px-6 py-3 border border-cyan-900 rounded-md">
-                    <div id="savedContent">
-                        <ul class="max-w-xs" id="savedUrl"></ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="index.js"></script>
-</body>
-
+			<!-- ******************* Dialog box ************************* -->
+			<div
+				id="myDialog"
+				class="w-4/6 hidden text-white bg-purple-900 mx-20 p-3 z-10 rounded-md"
+			>
+				<p>Are you sure you want to delete this item?</p>
+				<div class="flex justify-end">
+					<button
+						id="yesButton"
+						class="text-purple-700 bg-white rounded px-3 py-2 border-none m-2 hover:text-white hover:bg-purple-900"
+					>
+						Yes
+					</button>
+					<button
+						id="noButton"
+						class="text-purple-700 bg-white rounded px-3 py-2 border-none m-2 hover:text-white hover:bg-purple-900"
+					>
+						No
+					</button>
+				</div>
+			</div>
+			<!-- *************** Saved Tabs List  ******************** -->
+			<div class="text-center">
+				<div class="relative inline-block" id="dropdown">
+					<button
+						class="border text-purple-800 rounded-lg underline text-xl border-white font-semibold p-2 my-3"
+						id="dropTabsBtn"
+					>
+						Saved Tabs
+					</button>
+					<div
+						class="hidden shadow-xl mx-auto overflow-y-scroll bg-white w-96 h-44 px-6 py-3 border border-purple-900 rounded-md"
+					>
+						<div id="savedContent">
+							<div class="max-w-xs" id="savedUrl"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="index.js"></script>
+	</body>
 </html>
